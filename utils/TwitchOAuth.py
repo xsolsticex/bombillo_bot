@@ -54,7 +54,7 @@ class TwitchTokenValidator:
             "grant_type":"refresh_token"
         }
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+            "User-Agent": os.getenv("AGENTS")
         }
         response = requests.post(url,params=params,headers=headers)
         if response.status_code == 200:
