@@ -16,8 +16,8 @@ def get_token():
     
     auth_code = request.args.get("code")
     token = tr.code_to_token(auth_code)
-    if token:
-        fm.write_file(token)
+    if oauth.validate_token(token.get("access_token"),token.get("refresh_token")):
+        #fm.write_file(token)
         return {"Status":"Success!"}
     else:
         return {"Status":"Failed!"}
@@ -28,12 +28,28 @@ def send_token_client():
     client_key = os.getenv("X-API-KEY")
     if client_key == request.headers.get("X-API-KEY"):
         data : dict = fm.read_file()
-        access_token = data.get("access_token")
-        refresh_token  = data.get("refresh_token")
-        if not oauth.validate_token(access_token):
+        access_token = data.get("erbocatalomo")["access_token"]
+        refresh_token  = data.get("erbocatalomo")["refresh_token"]
+        if not oauth.validate_token(access_token,refresh_token):
             print("Token is not valid")
-            data = oauth.refresh_token(refresh_token)
-            fm.write_file(data)
+            oauth.refresh_token(refresh_token)
+            #fm.write_file(data)
             print("Token updated")
-        return data
+            data : dict = fm.read_file()
+            print("==================")
+        else:
+            print("Token is valid")
+        return {"access_token":data.get("erbocatalomo")["access_token"],"refresh_token":data.get("erbocatalomo")["refresh_token"]}
     return {"status":"Abort"},401
+
+
+@main.route("/info/<username>")
+def send_info(username:str):
+    client_key = os.getenv("X-API-KEY")
+    if client_key == request.headers.get("X-API-KEY"):
+        data : dict = fm.read_file()
+        print(data[username])
+        return data[username],200
+    else:
+        return {"Status":"No Authorized"},401
+
