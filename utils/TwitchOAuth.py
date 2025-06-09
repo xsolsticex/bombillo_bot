@@ -36,7 +36,7 @@ class TwitchTokenValidator:
     def validate_token(self,token:str):
         url = "https://id.twitch.tv/oauth2/validate"
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+            "User-Agent": os.getenv("AGENTS"),
             "Authorization": f"Bearer {token}"
         }
         response = requests.get(url,headers=headers)
