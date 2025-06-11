@@ -36,7 +36,8 @@ def get_token():
         user_exist = gu.execute(data.username)
         if user_exist == None:
             cu.execute(data)
-            return {"Status":"Success!"}
+        return {"Status":"Success!"}
+       
     else:
         return {"Status":"Failed!"}
     
