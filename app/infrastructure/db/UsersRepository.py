@@ -9,8 +9,7 @@ class UserRepository:
 
     def __init__(self):
         load_dotenv()
-        self.host = os.getenv("HOST")
-        self.conn = psycopg2.connect(self.host)
+        self.conn = psycopg2.connect(dbname=os.getenv("HOST"),user=os.getenv("USER"),password=os.getenv("PASSWORD"),host=os.getenv("HOST"),port=os.getenv("PORT"))
         self.cursor = self.conn.cursor()
 
     def guardar(self,usuario : User):
