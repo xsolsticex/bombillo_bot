@@ -33,9 +33,10 @@ class UserRepository:
             cursor = self.conn.cursor()
             cursor.execute(statement)
             data = cursor.fetchone()
-            _,_,token,refresh_token = data
-            return [token,refresh_token]
-        return None
+            if data:
+                _,_,token,refresh_token = data
+                return [token,refresh_token]
+            return None
     
     def get_broadcaster_tokens(self,username:str):
         with self.conn:
