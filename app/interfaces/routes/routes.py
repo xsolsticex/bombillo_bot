@@ -32,8 +32,11 @@ def get_token():
     if data:
         data.set_refresh_token(token.get("refresh_token"))
         cu  = CreateUser(rp)
-        cu.execute(data)
-        return {"Status":"Success!"}
+        gu = GetUser(rp)
+        user_exist = gu.execute(data.username)
+        if user_exist == None:
+            cu.execute(data)
+            return {"Status":"Success!"}
     else:
         return {"Status":"Failed!"}
     
