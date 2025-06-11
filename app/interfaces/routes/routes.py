@@ -2,6 +2,7 @@ import os
 from flask import Blueprint,request,jsonify
 
 from app.application.use_cases.CreateUser import CreateUser
+from app.application.use_cases.GetBroadcasterTokens import GetBroadcasterTokens
 from app.application.use_cases.GetUser import GetUser
 from app.application.use_cases.UpdateUser import UpdateUser
 from app.domain.entities.User import User
@@ -72,10 +73,10 @@ def send_token_client():
 
 @main.route("/info/<username>")
 def send_info(username:str):
+    bt = GetBroadcasterTokens(rp)
     client_key = os.getenv("X-API-KEY")
     if client_key == request.headers.get("X-API-KEY"):
-        gu = GetUser(rp)
-        access_token,broadcaster_id = gu.execute(username=username)
+        access_token,broadcaster_id = bt.execute(username=username)
         # data : dict = fm.read_file()
 
         return {"access_token":access_token,"broadcaster_id":broadcaster_id},200

@@ -37,7 +37,7 @@ class UserRepository:
             return [token,refresh_token]
         return None
     
-    def get_broadcaster_tokens(self,username:str="erbocatalomo"):
+    def get_broadcaster_tokens(self,username:str):
         with self.conn:
             statement = f"SELECT * FROM usuarios WHERE nombre_usuario = '{username}'"
             cursor = self.conn.cursor()
