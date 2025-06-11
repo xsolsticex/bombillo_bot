@@ -3,3 +3,5 @@ __pycache__
 .env
 tokens.json
 .vscode
+BotDb.py
+FileManager.py
