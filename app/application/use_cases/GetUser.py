@@ -8,5 +8,5 @@ class GetUser:
     def __init__(self,repository : UserRepository):
         self.repository = repository
 
-    def execute(self,username:str='erbocatalomo'):
+    def execute(self,username:str):
         return self.repository.get_user_access_token(username)

@@ -43,12 +43,12 @@ def get_token():
         return {"Status":"Failed!"}
     
 
-@main.route("/token")
-def send_token_client():
+@main.route("/token/<username>")
+def send_token_client(username="erbocatalomo"):
     client_key = os.getenv("X-API-KEY")
     if client_key == request.headers.get("X-API-KEY"):
         gu = GetUser(rp)
-        access_token,refresh_token = gu.execute()
+        access_token,refresh_token = gu.execute(username)
         # data : dict = fm.read_file()
         # access_token = data.get("erbocatalomo")["access_token"]
         # refresh_token  = data.get("erbocatalomo")["refresh_token"]

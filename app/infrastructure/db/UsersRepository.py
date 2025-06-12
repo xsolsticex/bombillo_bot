@@ -27,7 +27,7 @@ class UserRepository:
             return data
         return None
 
-    def get_user_access_token(self,username:str="erbocatalomo"):
+    def get_user_access_token(self,username:str):
         with self.conn:
             statement = f"SELECT * FROM usuarios WHERE nombre_usuario = '{username}'"
             cursor = self.conn.cursor()
