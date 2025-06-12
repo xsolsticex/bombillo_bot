@@ -58,7 +58,7 @@ def send_token_client(username="erbocatalomo"):
             uu = UpdateUser(rp)
             access_token = new_data.get("access_token")
             refresh_token= new_data.get("refresh_token")
-            uu.execute(username="erbocatalomo",access_token=access_token,refresh_token=refresh_token)
+            uu.execute(username=username,access_token=access_token,refresh_token=refresh_token)
             print("Token updated")
         else:
             print("Token is valid")
